@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="stlye.css">
+  </head>
+  <body>
+    <section class="page-container">
+      <section class="user-form">
+        <div class="user-form__container">
+          <h1 class="user-form__title">ideabox</h2>
+          <input class="user-form__input-title user-form__input" type="text" placeholder="Title">
+          <input class="user-form__input-body user-form__input" type="text" placeholder="Body">
+          <button class="user-form__button-save" type="submit">save</button>
+        </div>
+      </section>
+      <section class="ideabox">
+        <input class="ideabox__input-search" type="text" placeholder="Search">
+        <ul class="ideabox__ul">
+          <li id="idea.id">
+            <h2 id="idea.title" class="ideabox__li-title">example idea 1</h2>
+            <button class="ideabox__button-delete">x</button>
+            <p class="ideabox__li-body" id="idea.body"></p>
+            <button class="upvote"></button>
+            <button class="downvote"></button>
+              <p>quality<span id="idea.quality"></p>
+          </li>
+        </ul>
+      </section>
+    </section>
+  </body>
+</html>
