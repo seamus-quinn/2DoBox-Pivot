@@ -19,7 +19,7 @@ function Idea(userInputTitle, userInputBody) {
 
 Idea.prototype.prepend = function() {
   $('ul').prepend(`
-    <li id="idea.id">
+    <li id="${this.id}">
       <h2
         id="idea.title"
         class="ideabox__li-title">
@@ -71,6 +71,7 @@ function disableBtn() {
 function deleteCard(e) {
   if(e.target && e.target.matches('.ideabox__button-delete')){
     event.target.closest('li').remove();
+    localStorage.removeItem(e.target.parentNode.id);
   }
 }
 
@@ -89,7 +90,7 @@ function getFromStorage(newIdea) {
 function persistUserData() {
   for (var i = 0 ; i < localStorage.length ; i++) {
     var ideaFromStorage = getFromStorage(localStorage.key(i));
-    $('ul').prepend(`<li id="idea.id">
+    $('ul').prepend(`<li id=${ideaFromStorage.id}>
       <h2
         id="idea.title"
         class="ideabox__li-title">
