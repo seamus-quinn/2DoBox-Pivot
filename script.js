@@ -5,9 +5,10 @@ var $inputButton = $('.user-form__button-save');
 $($inputButton).on('click', createIdea);
 $('user-form__input-title, .user-form__input-body').on('keyup', disableBtn);
 $('ul').on('click', deleteCard);
+$('ul').on('click', upVote);
+$('ul').on('click', downVote);
 
 $(document).ready(persistUserData());
-
 
 function Idea(userInputTitle, userInputBody) {
   this.id = Date.now();
@@ -65,6 +66,37 @@ function disableBtn() {
     $('.user-form__button-save').attr('disabled', true);
   } else {
     $('.user-form__button-save').attr('disabled', false);
+  }
+}
+
+function upVote(e) {
+  if(e.target && e.target.matches('.upvote')) {
+    var object = getFromStorage(e.target.parentNode.id);
+    upVoteRange(object);
+    e.target.nextSibling.nextSibling.nextSibling.nextSibling.lastChild.previousSibling.innerText = object.quality[object.qualityCounter];
+    // console.log(e.target.nextSibling.nextSibling.nextSibling);
+    sendToStorage(object);
+  }
+}
+
+function downVote(e) {
+  if(e.target && e.target.matches('.downvote')) {
+    var object = getFromStorage(e.target.parentNode.id);
+    downVoteRange(object);
+    e.target.nextSibling.nextSibling.lastChild.previousSibling.innerText = object.quality[object.qualityCounter];
+    sendToStorage(object);
+  }
+}
+
+function upVoteRange(obj) {
+  if(obj.qualityCounter < 2) {
+    obj.qualityCounter++;
+  }
+}
+
+function downVoteRange(obj) {
+  if(obj.qualityCounter > 0) {
+    obj.qualityCounter--;
   }
 }
 
