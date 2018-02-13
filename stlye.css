@@ -1,24 +1,58 @@
-.page-container {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+}
+
+.p-container {
 
 }
 
 .user-form {
+  background-color: #E5F3F2;
+  width: 100%;
+  height: 45%;
+  position: fixed;
 
 }
 
 .user-form__container {
-
+  margin: 0 auto;
+  width: 60%;
 }
 
-.user-form__title {
-
+.user-form__title{
+  text-align: center;
+  font-size: 70px;
+  margin:10px 0 30px;
 }
 
-.user-form__input {
+.user-form__title-idea {
+  color: #00A79D;
+}
 
+.user-form__title-box {
+  color: #6D6E71;
 }
 
 .user-form__input-title {
+  
+}
+
+.user-form__input {
+  color: #6D6E71;
+  width: 100%;
+  height: 50px;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.user-form__input::placeholder {
+  font-size: 30px;
+}
+
+.user-form__input-box {
 
 }
 
@@ -27,38 +61,103 @@
 
 }
 
-.user-form__button {
+.user-form__button-save {
+  color: #FFFFFF;
+  background-color: #00A79D; 
+  width: 100%;
+  height: 60px;
+  font-size: 20px;
+}
 
+.user-form__button-save:hover {
+  background-color: #045E55;
+}
+
+.user-form__button-save:hover:disabled {
+  background-color: #00A79D;
 }
 
 .ideabox {
+  width: 100%;
+  height: 55%;
+  position: absolute;
+  top: 45%;
+  overflow-y: auto;
 
 }
 
+.ideabox__container {
+  margin: 0 auto;
+  width: 60%;
+}
+
 .ideabox__input-search {
+  width: 100%;
+  height: 60px;
+  margin: 20px 0;
+}
+
+.ideabox__input-search::placeholder {
+  font-size: 30px;
+  padding: 5px 0 0 0;
+}
+
+.ul-container {
 
 }
 
 .ideabox__ul {
+}
 
+li {
+  list-style-type: none;
+  position: relative;
 }
 
 .ideabox__li-title {
-
+  color: #6D6E71;
 }
 
 .ideabox__button-delete {
+  background-image: url(images/delete.svg);
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 3px;
+  top: 3px;
+}
 
+.ideabox__button-delete:hover {
+  background-image: url(images/delete-hover.svg);
 }
 
 .ideabox__li-body {
-
+  color: #939598;
+  margin: 10px 0;
 }
 
 .upvote {
+  background-image: url(images/upvote.svg);
+  width: 20px;
+  height: 20px;
+}
 
+.upvote:hover {
+  background-image: url(images/upvote-hover.svg);
 }
 
 .downvote {
+  background-image: url(images/downvote.svg);
+  width: 20px;
+  height: 20px;
+}
 
+
+.downvote:hover {
+  background-image: url(images/downvote-hover.svg);
+
+}
+
+.ideabox__li-quality {
+  color: #6D6E71;
 }
