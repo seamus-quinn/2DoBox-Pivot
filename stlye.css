@@ -46,6 +46,7 @@
   height: 50px;
   margin-bottom: 20px;
   font-size: 30px;
+  outline: none;
 }
 
 .user-form__input::placeholder {
@@ -125,6 +126,11 @@ li {
   position: absolute;
   right: 3px;
   top: 3px;
+}
+
+button {
+  border: none;
+  outline: none;
 }
 
 .ideabox__button-delete:hover {
