@@ -7,6 +7,8 @@ $('user-form__input-title, .user-form__input-body').on('keyup', disableBtn);
 $('ul').on('click', deleteCard);
 $('ul').on('click', upVote);
 $('ul').on('click', downVote);
+$('ul').on('blur', '.ideabox__li-title', editTitleContent);
+$('ul').on('blur','.ideabox__li-body', editBodyContent);
 
 $(document).ready(persistUserData());
 
@@ -23,14 +25,14 @@ Idea.prototype.prepend = function() {
     <li id="${this.id}">
       <h2
         id="idea.title"
-        class="ideabox__li-title">
+        class="ideabox__li-title" contenteditable="true">
         ${this.title}
       </h2>
       <button
          class="ideabox__button-delete">
       </button>
       <p
-        class="ideabox__li-body"
+        class="ideabox__li-body" contenteditable="true"
         id="idea.body">
         ${this.body}
       </p>
@@ -57,6 +59,7 @@ function createIdea(event, userInputTitle, userInputBody) {
     newIdea.prepend();
     $('.user-form__input').val('');
     disableBtn();
+    console.log(newIdea)
     sendToStorage(newIdea);
     getFromStorage(newIdea);
 }
@@ -115,8 +118,22 @@ function sendToStorage(newIdea) {
 
 function getFromStorage(newIdea) {
   var retrieveObject = localStorage.getItem(newIdea);
-  var parseObject = JSON.parse(retrieveObject);
-  return parseObject;
+  var parsedObject = JSON.parse(retrieveObject);
+  return parsedObject;
+}
+
+function editTitleContent() {
+  var parsedObject = getFromStorage($(this).parent().attr('id'));
+  parsedObject.title = $(this).text();
+  console.log(parsedObject)
+  sendToStorage(parsedObject);
+}
+
+function editBodyContent() {
+  var parsedObject = getFromStorage($(this).parent().attr('id'));
+  parsedObject.body = $(this).text();
+  sendToStorage(parsedObject)
+  console.log(parsedObject.body);
 }
 
 function persistUserData() {
@@ -125,14 +142,14 @@ function persistUserData() {
     $('ul').prepend(`<li id=${ideaFromStorage.id}>
       <h2
         id="idea.title"
-        class="ideabox__li-title">
+        class="ideabox__li-title" contenteditable="true">
         ${ideaFromStorage.title}
       </h2>
       <button
          class="ideabox__button-delete">
       </button>
       <p
-        class="ideabox__li-body"
+        class="ideabox__li-body" contenteditable="true"
         id="idea.body">
         ${ideaFromStorage.body}
       </p>
