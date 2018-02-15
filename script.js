@@ -45,6 +45,7 @@ Idea.prototype.prepend = function() {
         <span
           id="idea.quality">${this.quality[this.qualityCounter]}</span>
       </p>
+      <hr>
     </li>`)
 }
 
@@ -163,6 +164,7 @@ function persistUserData() {
             ${ideaFromStorage.quality[ideaFromStorage.qualityCounter]}
           </span>
         </p>
+        <hr>
       </li>`);
   }
 }
@@ -181,8 +183,5 @@ function filter(e) {
   // console.log('includes', ideaBody.includes(search));
 
   // if($('ideaList:contains('" + search + "')' ){
-  
+
 }
-
-
-
