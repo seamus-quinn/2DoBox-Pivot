@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>IdeaBox</title>
     <link 
       rel="stylesheet"  
       type="text/css" 
@@ -20,39 +20,52 @@
             <span
             class="user-form__title-box">
             box
-          </span>
-        </h2>
-          <input 
-            class="
-             user-form__input-title 
-             user-form__input" 
-            type="text" 
-            placeholder="Title">
-          <input 
-            class="
-            user-form__input-body 
-            user-form__input" 
-            type="text" 
-            placeholder="Body">
-          <button 
-            class="user-form__button-save" 
-            type="submit"
-            disabled>
-            save
-          </button>
+            </span>
+          </h2>
+          <form 
+            aria-label="
+            Please enter both you idea title and body before entering your submission to you ideabox." 
+            aria-live= "polite">
+            <input 
+              aria-label="Title input field"
+              tabindex="1" 
+              class="
+               user-form__input-title 
+               user-form__input" 
+              type="text" 
+              placeholder="Title">
+            <input 
+              aria-label="Body input field"
+              tabindex="1" 
+              class="
+              user-form__input-body 
+              user-form__input" 
+              type="text" 
+              placeholder="Body">
+            <button 
+              aria-label="please press enter to submit your idea to your idea list."
+              tabindex="1" 
+              class="user-form__button-save" 
+              type="submit"
+              disabled>
+              save
+            </button>
+          </form>
         </div>
       </section>
-      <section class="ideabox">
-        <div class="ideabox__container">
-        <input 
-          class="ideabox__input-search" 
-          type="text" 
-          placeholder="Search">
-        <section class="ul-container">
-          <ul class="ideabox__ul">
-          </ul>
-        </section>
-      </div>
+      <section class="ideabox"
+        aria-live= "polite">
+        <div 
+          class="ideabox__container">
+          <input aria-label=" Enter your search here to filter through your ideabox." 
+            class="ideabox__input-search" 
+            type="text" 
+            placeholder="Search">
+          <section class="ul-container">
+            <ul class="ideabox__ul">
+            </ul>
+          </section>
+        </div>
       </section>
     </section>
   </body>
