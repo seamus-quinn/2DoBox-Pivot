@@ -2,14 +2,14 @@ var $userInputTitle = $('.user-form__input-title');
 var $userInputBody = $('.user-form__input-body ');
 var $inputButton = $('.user-form__button-save');
 
-$($inputButton).on('click', createIdea);
 $('user-form__input-title, .user-form__input-body').on('keyup', disableBtn);
-$('ul').on('click', deleteCard);
-$('ul').on('click', upVote);
-$('ul').on('click', downVote);
 $('ul').on('blur', '.ideabox__li-title', editTitleContent);
 $('ul').on('blur','.ideabox__li-body', editBodyContent);
 $('.ideabox__input-search').on('keyup', filter);
+$($inputButton).on('click', createIdea);
+$('ul').on('click', deleteCard);
+$('ul').on('click', downVote);
+$('ul').on('click', upVote);
 
 $(document).ready(persistUserData());
 
@@ -55,7 +55,7 @@ function createIdea(event, userInputTitle, userInputBody) {
     newIdea.prepend();
     $('.user-form__input').val('');
     disableBtn();
-    console.log(newIdea);
+    
     sendToStorage(newIdea);
     getFromStorage(newIdea);
 }
@@ -121,7 +121,6 @@ function getFromStorage(newIdea) {
 function editTitleContent() {
   var parsedObject = getFromStorage($(this).parent().attr('id'));
   parsedObject.title = $(this).text();
-  console.log(parsedObject)
   sendToStorage(parsedObject);
 }
 
@@ -129,7 +128,6 @@ function editBodyContent() {
   var parsedObject = getFromStorage($(this).parent().attr('id'));
   parsedObject.body = $(this).text();
   sendToStorage(parsedObject)
-  console.log(parsedObject.body);
 }
 
 function persistUserData() {
@@ -170,18 +168,14 @@ function persistUserData() {
 }
 
 function filter(e) {
-  // e.preventDefault();
   var ideaBody = $('.ideabox__li-body').text();
   var ideaTitle = $('.ideabox__li-title').text();
-  console.log('body, ', ideaBody)
   var search = $('.ideabox__input-search').val();
-  if(ideaBody.includes(search) === true){
-    $('.ideabox__li').show();
+  for( var i = 0 ; i < $('.ideabox__li').length ; i++) {
+  if(ideaBody[i].includes(search) === true || ideaTitle[i].includes(search) === true){
+    $($('.ideabox__li')[i]).show();
   } else {
-    $('.ideabox__li').hide();
+    $($('.ideabox__li')[i]).hide();
   }
-  // console.log('includes', ideaBody.includes(search));
-
-  // if($('ideaList:contains('" + search + "')' ){
-
+  }
 }
