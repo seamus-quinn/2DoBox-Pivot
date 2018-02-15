@@ -9,6 +9,7 @@ $('ul').on('click', upVote);
 $('ul').on('click', downVote);
 $('ul').on('blur', '.ideabox__li-title', editTitleContent);
 $('ul').on('blur','.ideabox__li-body', editBodyContent);
+$('.ideabox__input-search').on('keyup', filter);
 
 $(document).ready(persistUserData());
 
@@ -22,20 +23,16 @@ function Idea(userInputTitle, userInputBody) {
 
 Idea.prototype.prepend = function() {
   $('ul').prepend(`
-    <li id="${this.id}">
+    <li class="ideabox__li" id="${this.id}">
       <h2
         id="idea.title"
-        class="ideabox__li-title" contenteditable="true">
-        ${this.title}
-      </h2>
+        class="ideabox__li-title" contenteditable="true">${this.title}</h2>
       <button
          class="ideabox__button-delete">
       </button>
       <p
         class="ideabox__li-body" contenteditable="true"
-        id="idea.body">
-        ${this.body}
-      </p>
+        id="idea.body">${this.body}</p>
       <button
         class="upvote">
       </button>
@@ -46,9 +43,7 @@ Idea.prototype.prepend = function() {
         class="ideabox__li-quality">
         quality:
         <span
-          id="idea.quality">
-          ${this.quality[this.qualityCounter]}
-        </span>
+          id="idea.quality">${this.quality[this.qualityCounter]}</span>
       </p>
     </li>`)
 }
@@ -59,7 +54,7 @@ function createIdea(event, userInputTitle, userInputBody) {
     newIdea.prepend();
     $('.user-form__input').val('');
     disableBtn();
-    console.log(newIdea)
+    console.log(newIdea);
     sendToStorage(newIdea);
     getFromStorage(newIdea);
 }
@@ -139,34 +134,55 @@ function editBodyContent() {
 function persistUserData() {
   for (var i = 0 ; i < localStorage.length ; i++) {
     var ideaFromStorage = getFromStorage(localStorage.key(i));
-    $('ul').prepend(`<li id=${ideaFromStorage.id}>
-      <h2
-        id="idea.title"
-        class="ideabox__li-title" contenteditable="true">
-        ${ideaFromStorage.title}
-      </h2>
-      <button
-         class="ideabox__button-delete">
-      </button>
-      <p
-        class="ideabox__li-body" contenteditable="true"
-        id="idea.body">
-        ${ideaFromStorage.body}
-      </p>
-      <button
-        class="upvote">
-      </button>
-      <button
-        class="downvote">
-      </button>
-      <p
-        class="ideabox__li-quality">
-        quality:
-        <span
-          id="idea.quality">
-          ${ideaFromStorage.quality[ideaFromStorage.qualityCounter]}
-        </span>
-      </p>
-    </li>`);
+    $('ul').prepend(`
+      <li class="ideabox__li"id=${ideaFromStorage.id}>
+        <h2
+          id="idea.title"
+          class="ideabox__li-title" contenteditable="true">
+          ${ideaFromStorage.title}
+        </h2>
+        <button
+           class="ideabox__button-delete">
+        </button>
+        <p
+          class="ideabox__li-body" contenteditable="true"
+          id="idea.body">
+          ${ideaFromStorage.body}
+        </p>
+        <button
+          class="upvote">
+        </button>
+        <button
+          class="downvote">
+        </button>
+        <p
+          class="ideabox__li-quality">
+          quality:
+          <span
+            id="idea.quality">
+            ${ideaFromStorage.quality[ideaFromStorage.qualityCounter]}
+          </span>
+        </p>
+      </li>`);
   }
 }
+
+function filter(e) {
+  // e.preventDefault();
+  var ideaBody = $('.ideabox__li-body').text();
+  var ideaTitle = $('.ideabox__li-title').text();
+  console.log('body, ', ideaBody)
+  var search = $('.ideabox__input-search').val();
+  if(ideaBody.includes(search) === true){
+    $('.ideabox__li').show();
+  } else {
+    $('.ideabox__li').hide();
+  }
+  // console.log('includes', ideaBody.includes(search));
+
+  // if($('ideaList:contains('" + search + "')' ){
+  
+}
+
+
+
