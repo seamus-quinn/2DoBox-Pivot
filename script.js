@@ -77,7 +77,7 @@ function upVote(e) {
     var object = getFromStorage(e.target.parentNode.id);
     upVoteRange(object);
     e.target.nextSibling.nextSibling.nextSibling.nextSibling.lastChild.previousSibling.innerText = object.quality[object.qualityCounter];
-    // console.log(e.target.nextSibling.nextSibling.nextSibling);
+    console.log(e.target.nextSibling.nextSibling.nextSibling);
     sendToStorage(object);
   }
 }
