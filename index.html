@@ -4,77 +4,34 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ideabox</title>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="stlye.css">
+    <link rel="stylesheet" type="text/css" href="stlye.css">
       <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,700" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   </head>
   <body>
     <section class="page-container">
       <section class="user-form">
-        <div class="user-form__container">
-          <h1
-            class="
-            user-form__title
-            user-form__title-idea">
-            idea
-            <span
-            class="user-form__title-box">
-            box
-            </span>
-          </h2>
-          <form 
-            aria-label="
-            Please enter both you idea title and body before entering your submission to you ideabox." 
-            aria-live= "polite">
-            <input 
-              aria-label="Title input field"
-              tabindex="1" 
-              class="
-               user-form__input-title 
-               user-form__input" 
-              type="text" 
-              placeholder="Title">
-            <input 
-              aria-label="Body input field"
-              tabindex="1" 
-              class="
-              user-form__input-body 
-              user-form__input" 
-              type="text" 
-              placeholder="Body">
-            <button 
-              aria-label="please press enter to submit your idea to your idea list."
-              tabindex="1" 
-              class="user-form__button-save" 
-              type="submit"
-              disabled>
-              save
+        <h1 class="title-1">idea
+          <span class="title-2">box</span>
+        </h1>
+        <article class="form-container">
+          <form aria-label="Please enter both your idea title and body before entering your submission to you ideabox." aria-live= "polite">
+            <input aria-label="Title input field" tabindex="1" class="title-input" type="text" placeholder="Title">
+            <input aria-label="Body input field" tabindex="1" class="body-input" type="text" placeholder="Body">
+            <button aria-label="please press enter to submit your idea to your idea list." tabindex="1" class="save-button" type="submit" disabled>save
             </button>
           </form>
-        </div>
+        </article>
       </section>
-      <section class="ideabox"
-        aria-live= "polite">
-        <div 
-          class="ideabox__container">
-          <input aria-label=" Enter your search here to filter through your ideabox." 
-            class="ideabox__input-search" 
-            type="text" 
-            placeholder="Search">
-          <section class="ul-container">
-            <ul class="ideabox__ul">
-            </ul>
-          </section>
-        </div>
+      <section class="search-section" aria-live= "polite">
+          <input aria-label=" Enter your search here to filter through your ideabox." class="search-input" type="text" placeholder="Search">
+      </section>
+      <section class="card-section">
+        <ul class="card-container">
+        </ul>
       </section>
     </section>
   </body>
-  <script
-  src="http://code.jquery.com/jquery-3.3.1.js"
-  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
-  crossorigin="anonymous"></script>
+  <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
   <script src="script.js"></script>
 </html>
