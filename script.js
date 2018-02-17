@@ -53,11 +53,10 @@ function createIdea(event) {
   event.preventDefault();
   var newIdea = new Idea();
     prependCard(newIdea);
+    sendToStorage(newIdea);
     $('.title-input .body-input').val('');
     disableBtn();
-    
-    sendToStorage(newIdea);
-    getFromStorage(newIdea);
+    // getFromStorage(newIdea);
 }
 
 function disableBtn() {
@@ -107,8 +106,7 @@ function deleteCard(e) {
 }
 
 function sendToStorage(newIdea) {
-  var storeNewObject = newIdea;
-  var stringifyNewObject = JSON.stringify(storeNewObject);
+  var stringifyNewObject = JSON.stringify(newIdea);
   localStorage.setItem(newIdea.id, stringifyNewObject);
 }
 
