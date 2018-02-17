@@ -67,12 +67,19 @@ function disableBtn() {
 }
 
 function upVote(event) {
+  var ideaId = $(this).parent().attr("id");
   var newQuality = $(this).siblings().children();
+  var xx = getFromStorage(ideaId);
+
   if ($(newQuality).text() === 'swill') {
     $(newQuality).text('plausible');
+    xx.quality = "plausible"
   } else if ($(newQuality).text() === 'plausible') {
     $(newQuality).text('genius');
+    xx.quality = "genius"
   }
+
+  sendToStorage(xx);
 }
 
 function downVote(e) {
@@ -81,18 +88,6 @@ function downVote(e) {
     $(newQuality).text('plausible');
   } else if ($(newQuality).text() === 'plausible') {
     $(newQuality).text('swill');
-  }
-}
-
-function upVoteRange(obj) {
-  if(obj.qualityCounter < 2) {
-    obj.qualityCounter++;
-  }
-}
-
-function downVoteRange(obj) {
-  if(obj.qualityCounter > 0) {
-    obj.qualityCounter--;
   }
 }
 
@@ -108,8 +103,8 @@ function sendToStorage(newIdea) {
   localStorage.setItem(newIdea.id, stringifyNewObject);
 }
 
-function getFromStorage(newIdea) {
-  var retrieveObject = localStorage.getItem(newIdea);
+function getFromStorage(key) {
+  var retrieveObject = localStorage.getItem(key);
   var parsedObject = JSON.parse(retrieveObject);
   return parsedObject;
 }
