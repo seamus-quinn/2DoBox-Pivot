@@ -1,11 +1,11 @@
-var $userInputTitle = $('.user-form__input-title');
-var $userInputBody = $('.user-form__input-body ');
-var $inputButton = $('.user-form__button-save');
+var $userInputTitle = $('.title-input');
+var $userInputBody = $('.body-input');
+var $inputButton = $('.save-button');
 
-$('user-form__input-title, .user-form__input-body').on('keyup', disableBtn);
+$('.title-input, .body-input').on('keyup', disableBtn);
 $('ul').on('blur', '.ideabox__li-title', editTitleContent);
 $('ul').on('blur','.ideabox__li-body', editBodyContent);
-$('.ideabox__input-search').on('keyup', filter);
+$('.search-input').on('keyup', filter);
 $($inputButton).on('click', createIdea);
 $('ul').on('click', deleteCard);
 $('ul').on('click', downVote);
@@ -21,18 +21,18 @@ function Idea(userInputTitle, userInputBody) {
   this.qualityCounter = 0;
 }
 
-Idea.prototype.prepend = function() {
+function prependCard(newIdea) {
   $('ul').prepend(`
-    <li class="ideabox__li" id="${this.id}">
+    <li class="ideabox__li" id="${newIdea.id}">
       <h2
         id="idea.title"
-        class="ideabox__li-title" contenteditable="true">${this.title}</h2>
+        class="ideabox__li-title" contenteditable="true">${newIdea.title}</h2>
       <button
          class="ideabox__button-delete">
       </button>
       <p
         class="ideabox__li-body" contenteditable="true"
-        id="idea.body">${this.body}</p>
+        id="idea.body">${newIdea.body}</p>
       <button
         class="upvote">
       </button>
@@ -43,17 +43,17 @@ Idea.prototype.prepend = function() {
         class="ideabox__li-quality">
         quality:
         <span
-          id="idea.quality">${this.quality[this.qualityCounter]}</span>
+          id="idea.quality">${newIdea.quality[newIdea.qualityCounter]}</span>
       </p>
       <hr>
     </li>`)
 }
 
-function createIdea(event, userInputTitle, userInputBody) {
+function createIdea(event) {
   event.preventDefault();
   var newIdea = new Idea();
-    newIdea.prepend();
-    $('.user-form__input').val('');
+    prependCard(newIdea);
+    $('.title-input .body-input').val('');
     disableBtn();
     
     sendToStorage(newIdea);
@@ -61,10 +61,10 @@ function createIdea(event, userInputTitle, userInputBody) {
 }
 
 function disableBtn() {
-  if($('.user-form__input-title').val() === '' || $('.user-form__input-body').val() === ''){
-    $('.user-form__button-save').attr('disabled', true);
+  if($('.title-input').val() === '' || $('.body-input').val() === ''){
+    $('.save-button').attr('disabled', true);
   } else {
-    $('.user-form__button-save').attr('disabled', false);
+    $('.save-button').attr('disabled', false);
   }
 }
 
