@@ -8,17 +8,16 @@ $('ul').on('blur','.ideabox__li-body', editBodyContent);
 $('.search-input').on('keyup', filter);
 $($inputButton).on('click', createIdea);
 $('ul').on('click', deleteCard);
-$('ul').on('click', downVote);
-$('ul').on('click', upVote);
+$('ul').on('click', '.downvote', downVote);
+$('ul').on('click', '.upvote', upVote);
 
 $(document).ready(persistUserData());
 
-function Idea(userInputTitle, userInputBody) {
-  this.id = Date.now();
+function Idea(id, title, body, quality) {
+  this.id = id || $.now();
   this.title = $userInputTitle.val();
   this.body = $userInputBody.val();
-  this.quality = ['swill', 'plausible', 'genius'];
-  this.qualityCounter = 0;
+  this.quality = quality || 'swill';
 }
 
 function prependCard(newIdea) {
@@ -43,7 +42,7 @@ function prependCard(newIdea) {
         class="ideabox__li-quality">
         quality:
         <span
-          id="idea.quality">${newIdea.quality[newIdea.qualityCounter]}</span>
+          id="idea.quality">${newIdea.quality}</span>
       </p>
       <hr>
     </li>`)
@@ -67,22 +66,21 @@ function disableBtn() {
   }
 }
 
-function upVote(e) {
-  if(e.target && e.target.matches('.upvote')) {
-    var object = getFromStorage(e.target.parentNode.id);
-    upVoteRange(object);
-    e.target.nextSibling.nextSibling.nextSibling.nextSibling.lastChild.previousSibling.innerText = object.quality[object.qualityCounter];
-    console.log(e.target.nextSibling.nextSibling.nextSibling);
-    sendToStorage(object);
+function upVote(event) {
+  var newQuality = $(this).siblings().children();
+  if ($(newQuality).text() === 'swill') {
+    $(newQuality).text('plausible');
+  } else if ($(newQuality).text() === 'plausible') {
+    $(newQuality).text('genius');
   }
 }
 
 function downVote(e) {
-  if(e.target && e.target.matches('.downvote')) {
-    var object = getFromStorage(e.target.parentNode.id);
-    downVoteRange(object);
-    e.target.nextSibling.nextSibling.lastChild.previousSibling.innerText = object.quality[object.qualityCounter];
-    sendToStorage(object);
+  var newQuality = $(this).siblings().children();
+  if ($(newQuality).text() === 'genius') {
+    $(newQuality).text('plausible');
+  } else if ($(newQuality).text() === 'plausible') {
+    $(newQuality).text('swill');
   }
 }
 
