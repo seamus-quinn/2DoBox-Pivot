@@ -133,15 +133,69 @@ function persistUserData() {
 }
 }
 
-function filter(e) {
-  var ideaBody = $('.ideabox__li-body').text();
-  var ideaTitle = $('.ideabox__li-title').text();
-  var search = $('.ideabox__input-search').val();
-  for( var i = 0 ; i < $('.ideabox__li').length ; i++) {
-  if(ideaBody[i].includes(search) === true || ideaTitle[i].includes(search) === true){
-    $($('.ideabox__li')[i]).show();
-  } else {
-    $($('.ideabox__li')[i]).hide();
-  }
-  }
+function filter() {
+  $('.ideabox__li').hide();
+ search('.ideabox__li-body');
+ search('.ideabox__li-title');
+
 }
+
+function search(selector) {
+ var $input = $('.search-input').val();
+ $input = $input.toUpperCase();
+ var array = $(selector);
+ for (var i = 0; i < array.length; i++) {
+   if ($(array[i]).text().toUpperCase().includes($input)) {
+     $(array[i]).closest('li').show();
+   }
+ }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function filter() {
+//   var search = $('.search-input').val().toLowerCase();
+//   var title = $('.ideabox__li-title').text();
+//   var cards = $('ul');
+//   Array.from(cards).forEach( function(cards) {
+//     if(title.toLowerCase().indexOf(search) != -1) {
+//       debugger;
+//      cards.style.display = 'block';
+//     } else {
+//       cards.style.display = 'none';
+//     } 
+//   })
+// }
+
+
+
+
+
+// function filter(e) {
+//   var ideaBody = $('.ideabox__li-body').text();
+//   var ideaTitle = $('.ideabox__li-title').text();
+//   var search = $('.search-input').val();
+//   for( var i = 0 ; i < $('.ideabox__li').length ; i++) {
+//     if(ideaBody[i].includes(search) === true || ideaTitle[i].includes(search) === true){
+//       $($('.ideabox__li')[i]).show();
+//     } else {
+//       $($('.ideabox__li')[i]).hide();
+//     }
+//   }
+//   // debugger;
+// }
