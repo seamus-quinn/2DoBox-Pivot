@@ -129,38 +129,8 @@ function editBodyContent() {
 function persistUserData() {
   for (var i = 0 ; i < localStorage.length ; i++) {
     var ideaFromStorage = getFromStorage(localStorage.key(i));
-    $('ul').prepend(`
-      <li class="ideabox__li"id=${ideaFromStorage.id}>
-        <h2
-          id="idea.title"
-          class="ideabox__li-title" contenteditable="true">
-          ${ideaFromStorage.title}
-        </h2>
-        <button
-           class="ideabox__button-delete">
-        </button>
-        <p
-          class="ideabox__li-body" contenteditable="true"
-          id="idea.body">
-          ${ideaFromStorage.body}
-        </p>
-        <button
-          class="upvote">
-        </button>
-        <button
-          class="downvote">
-        </button>
-        <p
-          class="ideabox__li-quality">
-          quality:
-          <span
-            id="idea.quality">
-            ${ideaFromStorage.quality[ideaFromStorage.qualityCounter]}
-          </span>
-        </p>
-        <hr>
-      </li>`);
-  }
+    prependCard(ideaFromStorage);
+}
 }
 
 function filter(e) {
