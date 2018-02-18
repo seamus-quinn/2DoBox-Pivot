@@ -78,17 +78,22 @@ function upVote(event) {
     $(newQuality).text('genius');
     xx.quality = "genius"
   }
-
   sendToStorage(xx);
 }
 
 function downVote(e) {
+  var ideaId = $(this).parent().attr("id");
   var newQuality = $(this).siblings().children();
+  var xx = getFromStorage(ideaId);
+
   if ($(newQuality).text() === 'genius') {
     $(newQuality).text('plausible');
+    xx.quality = "plausible"
   } else if ($(newQuality).text() === 'plausible') {
     $(newQuality).text('swill');
+    xx.quality = "swill"
   }
+  sendToStorage(xx);
 }
 
 function deleteCard(e) {
