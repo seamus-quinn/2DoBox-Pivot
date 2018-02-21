@@ -135,7 +135,7 @@ button {
   font-size: 14px;
 }
 
-.mark-read {
+.mark-completed {
   opacity: .7;
   background-color: #E5F3F2;
 }
