@@ -10,14 +10,16 @@ $($inputButton).on('click', createIdea);
 $('ul').on('click', deleteCard);
 $('ul').on('click', '.downvote', downVote);
 $('ul').on('click', '.upvote', upVote);
+$('ul').on('click', '.ideabox__complete-button', markRead);
 
 $(document).ready(persistUserData());
 
-function Idea(id, title, body, quality) {
+function Idea(id, title, body, quality, read) {
   this.id = id || $.now();
   this.title = $userInputTitle.val();
   this.body = $userInputBody.val();
   this.quality = quality || 'swill';
+  this.read = read || false;
 }
 
 function prependCard(newIdea) {
@@ -32,6 +34,9 @@ function prependCard(newIdea) {
       <p
         class="ideabox__li-body" contenteditable="true"
         id="idea.body">${newIdea.body}</p>
+      <button
+        class="ideabox__complete-button">mark as read
+      </button>
       <button
         class="upvote">
       </button>
@@ -151,6 +156,21 @@ function search(selector) {
  }
 }
 
+function markRead() {
+  var ideaId = $(this).parent().attr("id");
+  var foo = getFromStorage(ideaId);
+
+  $(this).parent().toggleClass('mark-read');
+
+  if (foo.read === false) {
+    foo.read = true;
+  }
+  if (foo.read === true) {
+    foo.read = false;
+  }
+
+  sendToStorage(foo);
+}
 
 
 
