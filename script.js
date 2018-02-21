@@ -10,16 +10,16 @@ $($inputButton).on('click', createIdea);
 $('ul').on('click', deleteCard);
 $('ul').on('click', '.downvote', downVote);
 $('ul').on('click', '.upvote', upVote);
-$('ul').on('click', '.ideabox__complete-button', markRead);
+$('ul').on('click', '.ideabox__complete-button', markCompleted);
 
 $(document).ready(persistUserData());
 
-function Idea(id, title, body, quality, read) {
+function Idea(id, title, body, quality, completed) {
   this.id = id || $.now();
   this.title = $userInputTitle.val();
   this.body = $userInputBody.val();
   this.quality = quality || 'swill';
-  this.read = read || false;
+  this.completed = completed || false;
 }
 
 function prependCard(newIdea) {
@@ -134,9 +134,13 @@ function editBodyContent() {
 function persistUserData() {
   for (var i = 0 ; i < localStorage.length ; i++) {
     var ideaFromStorage = getFromStorage(localStorage.key(i));
+  if (ideaFromStorage.completed === true) {
+    $(ideaFromStorage).hide();
+  } else {
     prependCard(ideaFromStorage);
+  }
 }
-}
+} 
 
 function filter() {
   $('.ideabox__li').hide();
@@ -156,18 +160,12 @@ function search(selector) {
  }
 }
 
-function markRead() {
+function markCompleted() {
   var ideaId = $(this).parent().attr("id");
   var foo = getFromStorage(ideaId);
 
-  $(this).parent().toggleClass('mark-read');
-
-  if (foo.read === false) {
-    foo.read = true;
-  }
-  if (foo.read === true) {
-    foo.read = false;
-  }
+  $(this).parent().toggleClass('mark-completed');
+  foo.completed = !foo.completed;
 
   sendToStorage(foo);
 }
