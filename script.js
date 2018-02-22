@@ -1,24 +1,21 @@
-var $userInputTitle = $('.title-input');
-var $userInputBody = $('.body-input');
-var $inputButton = $('.save-button');
+$(document).ready(persistUserData());
 
 $('.title-input, .body-input').on('keyup', disableBtn);
 $('ul').on('blur', '.ideabox__li-title', editTitleContent);
 $('ul').on('blur','.ideabox__li-body', editBodyContent);
 $('.search-input').on('keyup', filter);
-$($inputButton).on('click', createIdea);
+$('.save-button').on('click', create2Do);
 $('ul').on('click', deleteCard);
 $('ul').on('click', '.downvote', downVote);
 $('ul').on('click', '.upvote', upVote);
 $('ul').on('click', '.ideabox__complete-button', markCompleted);
 $('.show-button').on('click', showCompleted);
 
-$(document).ready(persistUserData());
 
 function Idea(id, title, body, quality, completed) {
   this.id = id || $.now();
-  this.title = $userInputTitle.val();
-  this.body = $userInputBody.val();
+  this.title = $('.title-input').val();
+  this.body = $('.body-input').val();
   this.quality = quality || 'swill';
   this.completed = completed || false;
 }
@@ -30,13 +27,13 @@ function prependCard(newIdea, classname) {
         id="idea.title"
         class="ideabox__li-title" contenteditable="true">${newIdea.title}</h2>
       <button
-         class="ideabox__button-delete">
+         class="delete-button">
       </button>
       <p
         class="ideabox__li-body" contenteditable="true"
         id="idea.body">${newIdea.body}</p>
       <button
-        class="ideabox__complete-button">mark as read
+        class="ideabox__complete-button">completed task
       </button>
       <button
         class="upvote">
@@ -54,14 +51,14 @@ function prependCard(newIdea, classname) {
     </li>`)
 }
 
-function createIdea(event) {
+function create2Do(event) {
   event.preventDefault();
   var newIdea = new Idea();
-    prependCard(newIdea);
-    sendToStorage(newIdea);
-    $('.title-input .body-input').val('');
-    disableBtn();
-    // getFromStorage(newIdea);
+  prependCard(newIdea);
+  sendToStorage(newIdea);
+  $('.title-input').val('');
+  $('.body-input').val('');
+  disableBtn();
 }
 
 function disableBtn() {
@@ -69,44 +66,41 @@ function disableBtn() {
     $('.save-button').attr('disabled', true);
   } else {
     $('.save-button').attr('disabled', false);
-  }
+  };
 }
 
 function upVote(event) {
   var ideaId = $(this).parent().attr("id");
   var newQuality = $(this).siblings().children();
-  var xx = getFromStorage(ideaId);
-
+  var newQualityStorage = getFromStorage(ideaId);
   if ($(newQuality).text() === 'swill') {
     $(newQuality).text('plausible');
-    xx.quality = "plausible"
+    newQualityStorage.quality = "plausible"
   } else if ($(newQuality).text() === 'plausible') {
     $(newQuality).text('genius');
-    xx.quality = "genius"
+    newQualityStorage.quality = "genius"
   }
-  sendToStorage(xx);
+  sendToStorage(newQualityStorage);
 }
 
-function downVote(e) {
+function downVote(event) {
   var ideaId = $(this).parent().attr("id");
   var newQuality = $(this).siblings().children();
-  var xx = getFromStorage(ideaId);
-
-
+  var newQualityStorage = getFromStorage(ideaId);
   if ($(newQuality).text() === 'genius') {
     $(newQuality).text('plausible');
-    xx.quality = "plausible"
+    newQualityStorage.quality = "plausible"
   } else if ($(newQuality).text() === 'plausible') {
     $(newQuality).text('swill');
-    xx.quality = "swill"
+    newQualityStorage.quality = "swill"
   }
-  sendToStorage(xx);
+  sendToStorage(newQualityStorage);
 }
 
-function deleteCard(e) {
-  if(e.target && e.target.matches('.ideabox__button-delete')){
+function deleteCard(event) {
+  if(event.target && event.target.matches('.delete-button')){
     event.target.closest('li').remove();
-    localStorage.removeItem(e.target.parentNode.id);
+    localStorage.removeItem(event.target.parentNode.id);
   }
 }
 
@@ -136,27 +130,26 @@ function editBodyContent() {
 function persistUserData() {
   for (var i = 0 ; i < localStorage.length ; i++) {
     var ideaFromStorage = getFromStorage(localStorage.key(i));
-  if (ideaFromStorage.completed === true) {
-    $(ideaFromStorage).hide();
-  } else {
-    prependCard(ideaFromStorage);
+    if (ideaFromStorage.completed === true) {
+      $(ideaFromStorage).hide();
+    } else {
+      prependCard(ideaFromStorage);
+    }
   }
-}
 } 
 
 function filter() {
   $('.ideabox__li').hide();
- search('.ideabox__li-body');
- search('.ideabox__li-title');
-
+  search('.ideabox__li-body');
+  search('.ideabox__li-title');
 }
 
 function search(selector) {
- var $input = $('.search-input').val();
- $input = $input.toUpperCase();
+ var input = $('.search-input').val();
+ input = input.toUpperCase();
  var array = $(selector);
  for (var i = 0; i < array.length; i++) {
-   if ($(array[i]).text().toUpperCase().includes($input)) {
+   if ($(array[i]).text().toUpperCase().includes(input)) {
      $(array[i]).closest('li').show();
    }
  }
@@ -164,12 +157,10 @@ function search(selector) {
 
 function markCompleted() {
   var ideaId = $(this).parent().attr("id");
-  var foo = getFromStorage(ideaId);
-
+  var idea = getFromStorage(ideaId);
   $(this).parent().toggleClass('mark-completed');
-  foo.completed = !foo.completed;
-
-  sendToStorage(foo);
+  idea.completed = !idea.completed;
+  sendToStorage(idea);
 }
 
 function showCompleted() {
@@ -177,8 +168,8 @@ function showCompleted() {
     var ideaFromStorage = getFromStorage(localStorage.key(i));
   if ((ideaFromStorage.completed) === true) {
     prependCard(ideaFromStorage, 'mark-completed');
+    }
   }
-}
 }
 
 
