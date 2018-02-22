@@ -88,7 +88,8 @@ button {
 
 .search-section {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .search-input {
@@ -100,6 +101,15 @@ button {
   border: 1px solid #e0e1e1;
 }
 
+.show-button {
+  background-color: #E5F3F2;
+  height: 35px;
+  width: 60vw;
+  color: white;
+  font-size: 14px;
+  margin-top: 20px;
+
+}
 .card-container {
   width: 60vw;
   margin: auto;

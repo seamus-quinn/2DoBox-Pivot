@@ -11,6 +11,7 @@ $('ul').on('click', deleteCard);
 $('ul').on('click', '.downvote', downVote);
 $('ul').on('click', '.upvote', upVote);
 $('ul').on('click', '.ideabox__complete-button', markCompleted);
+$('.show-button').on('click', showCompleted);
 
 $(document).ready(persistUserData());
 
@@ -22,9 +23,9 @@ function Idea(id, title, body, quality, completed) {
   this.completed = completed || false;
 }
 
-function prependCard(newIdea) {
+function prependCard(newIdea, classname) {
   $('ul').prepend(`
-    <li class="ideabox__li" id="${newIdea.id}">
+    <li class="ideabox__li ${classname}" id="${newIdea.id}">
       <h2
         id="idea.title"
         class="ideabox__li-title" contenteditable="true">${newIdea.title}</h2>
@@ -90,6 +91,7 @@ function downVote(e) {
   var ideaId = $(this).parent().attr("id");
   var newQuality = $(this).siblings().children();
   var xx = getFromStorage(ideaId);
+
 
   if ($(newQuality).text() === 'genius') {
     $(newQuality).text('plausible');
@@ -170,50 +172,13 @@ function markCompleted() {
   sendToStorage(foo);
 }
 
+function showCompleted() {
+  for (var i = 0 ; i < localStorage.length ; i++) {
+    var ideaFromStorage = getFromStorage(localStorage.key(i));
+  if ((ideaFromStorage.completed) === true) {
+    prependCard(ideaFromStorage, 'mark-completed');
+  }
+}
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function filter() {
-//   var search = $('.search-input').val().toLowerCase();
-//   var title = $('.ideabox__li-title').text();
-//   var cards = $('ul');
-//   Array.from(cards).forEach( function(cards) {
-//     if(title.toLowerCase().indexOf(search) != -1) {
-//       debugger;
-//      cards.style.display = 'block';
-//     } else {
-//       cards.style.display = 'none';
-//     } 
-//   })
-// }
-
-
-
-
-
-// function filter(e) {
-//   var ideaBody = $('.ideabox__li-body').text();
-//   var ideaTitle = $('.ideabox__li-title').text();
-//   var search = $('.search-input').val();
-//   for( var i = 0 ; i < $('.ideabox__li').length ; i++) {
-//     if(ideaBody[i].includes(search) === true || ideaTitle[i].includes(search) === true){
-//       $($('.ideabox__li')[i]).show();
-//     } else {
-//       $($('.ideabox__li')[i]).hide();
-//     }
-//   }
-//   // debugger;
-// }
